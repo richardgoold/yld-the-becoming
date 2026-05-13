@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Becoming - YLD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf8;
+    --bg-deep: #f1f0ec;
+    --ink: #0a0e14;
+    --ink-soft: #1f242c;
+    --ink-muted: #5a6470;
+    --ink-quiet: #8a939e;
+    --rule: #d5dae0;
+    --rule-soft: #e6e9ed;
+    --accent: #0e7c73;
+    --accent-deep: #095955;
+    --accent-bright: #14a89c;
+    --accent-soft: rgba(14, 124, 115, 0.08);
+    --accent-tint: rgba(14, 124, 115, 0.04);
+    --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+    --sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--accent); color: #fff; }
+
+  /* ─── NAV ─── */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250, 250, 248, 0.92);
+    backdrop-filter: saturate(160%) blur(12px);
+    -webkit-backdrop-filter: saturate(160%) blur(12px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .nav-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 1.1rem 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 2rem;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 0.8rem;
+    color: var(--ink); text-decoration: none;
+  }
+  .nav-logo { height: 22px; width: auto; }
+  .nav-title {
+    font-family: var(--serif);
+    font-size: 1.1rem; font-weight: 500;
+    letter-spacing: -0.005em;
+    font-style: italic;
+  }
+  .nav-links { display: flex; gap: 1.75rem; }
+  .nav-links a {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    text-decoration: none;
+    transition: color 0.2s var(--ease);
+    letter-spacing: 0.01em;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ─── HERO ─── */
+  .hero { position: relative; overflow: hidden; }
+  .hero-content {
+    max-width: 1100px; margin: 0 auto;
+    padding: 7rem 2rem 5rem;
+    position: relative;
+  }
+  .hero-tag {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-muted);
+    margin-bottom: 2.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-tag::before {
+    content: ""; display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(3.4rem, 8.2vw, 6.8rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.4rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.2rem, 1.7vw, 1.45rem);
+    color: var(--ink-muted);
+    margin-top: 1.5rem;
+    max-width: 38rem;
+    line-height: 1.45;
+  }
+  .hero-meta {
+    margin-top: 4rem;
+    display: flex; gap: 3.5rem;
+    flex-wrap: wrap;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .hero-meta-item {
+    display: flex; flex-direction: column; gap: 0.35rem;
+  }
+  .hero-meta-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-quiet);
+  }
+  .hero-meta-value {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-weight: 400;
+  }
+  .hero-mark {
+    position: absolute;
+    top: 4rem; right: 2rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(8rem, 22vw, 18rem);
+    line-height: 0.85;
+    color: var(--accent-soft);
+    user-select: none;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-content > * { position: relative; z-index: 1; }
+
+  /* ─── SECTION ─── */
+  .section {
+    max-width: 1100px; margin: 0 auto;
+    padding: 6rem 2rem;
+    position: relative;
+  }
+  .section + .section { border-top: 1px solid var(--rule-soft); }
+  .section-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.02em;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+    max-width: 36rem;
+  }
+  .section-lead {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    max-width: 42rem;
+    margin-bottom: 3rem;
+  }
+  .section-lead em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .prose {
+    max-width: 38rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .prose p { margin-bottom: 1.2rem; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--ink); font-weight: 600; }
+
+  /* ─── PROPOSITION ─── */
+  .prop-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+  .prop-quote {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    line-height: 1.3;
+    color: var(--ink);
+    padding-left: 1.5rem;
+    border-left: 2px solid var(--accent);
+    position: sticky;
+    top: 6rem;
+  }
+
+  /* ─── WHAT IT IS / IS NOT - asymmetric weight ─── */
+  .is-isnot {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+  .is-block {
+    background: var(--accent-tint);
+    padding: 2.5rem 2.2rem;
+    border-radius: 2px;
+    position: relative;
+  }
+  .is-block::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 60px; height: 3px;
+    background: var(--accent);
+  }
+  .isnot-block {
+    padding: 2.5rem 0 2.5rem 1.5rem;
+    border-left: 1px solid var(--rule);
+  }
+  .is-label, .isnot-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.6rem;
+    font-weight: 500;
+  }
+  .isnot-label { color: var(--ink-quiet); }
+  .is-item, .isnot-item {
+    padding: 1.4rem 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 2.2rem 1fr;
+    gap: 0.5rem;
+    align-items: baseline;
+  }
+  .is-item:last-child, .isnot-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .is-item:first-of-type, .isnot-item:first-of-type { padding-top: 0; }
+  .is-item-num, .isnot-item-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--accent);
+    line-height: 1.3;
+  }
+  .isnot-item-num { color: var(--ink-quiet); }
+  .is-item-body h4, .isnot-item-body h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .is-item-body p, .isnot-item-body p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+
+  /* ─── PHASES ─── */
+  .phases { margin-top: 2rem; }
+  .phase {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .phase:last-child { border-bottom: 1px solid var(--rule); }
+  .phase-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    padding-top: 0.2rem;
+  }
+  .phase-body { max-width: 36rem; }
+  .phase-meta {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ink-quiet);
+    margin-bottom: 0.5rem;
+  }
+  .phase h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.55rem;
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 0.9rem;
+  }
+  .phase p {
+    font-size: 0.97rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 0.9rem;
+  }
+  .phase p:last-child { margin-bottom: 0; }
+
+  /* ─── RHYTHM - now as a timeline ─── */
+  .rhythm-intro { max-width: 42rem; }
+
+  .rhythm-timeline {
+    margin-top: 3rem;
+    position: relative;
+  }
+  .rhythm-band {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 2.5rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--rule);
+    align-items: start;
+  }
+  .rhythm-band:last-child { border-bottom: 1px solid var(--rule); }
+  .rhythm-band-cadence {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .rhythm-band-frequency {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--accent);
+    line-height: 1.1;
+  }
+  .rhythm-band-volume {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ink-quiet);
+  }
+  .rhythm-band-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+  .rhythm-item h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .rhythm-item p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+    max-width: 38rem;
+  }
+
+  .rhythm-callout {
+    margin-top: 2.5rem;
+    padding: 2rem 2.2rem;
+    background: var(--accent-soft);
+    border-left: 2px solid var(--accent);
+    max-width: 42rem;
+  }
+  .rhythm-callout-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+  .rhythm-callout h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+  }
+  .rhythm-callout p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ─── READINESS ─── */
+  .crit-list {
+    list-style: none;
+    counter-reset: crit;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+    margin-top: 2.5rem;
+  }
+  .crit-list li {
+    counter-increment: crit;
+    padding: 1.4rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .crit-list li::before {
+    content: counter(crit, decimal-leading-zero);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-right: 0.8rem;
+  }
+  .crit-list li strong {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-right: 0.4rem;
+  }
+  .crit-list li span {
+    font-size: 0.93rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* ─── SUPPORT - 3 up ─── */
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 2.5rem;
+  }
+  .support-card {
+    background: var(--bg);
+    padding: 2.2rem 1.8rem;
+  }
+  .support-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+  .support-card h3 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 0.7rem;
+    line-height: 1.3;
+  }
+  .support-card p {
+    font-size: 0.93rem;
+    line-height: 1.6;
+    color: var(--ink-muted);
+  }
+
+  /* ─── ASK ─── */
+  .ask {
+    background: var(--bg-deep);
+    margin-top: 4rem;
+    padding: 3.5rem;
+    border-radius: 2px;
+  }
+  .ask-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+    font-weight: 500;
+  }
+  .ask h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.8rem;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 32rem;
+    line-height: 1.25;
+  }
+  .ask-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 3rem;
+    margin-top: 1rem;
+  }
+  .ask-list li {
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    padding-left: 1.4rem;
+    position: relative;
+  }
+  .ask-list li::before {
+    content: "↳";
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-family: var(--serif);
+  }
+
+  /* ─── CLOSING ─── */
+  .closing {
+    text-align: center;
+    padding: 7rem 2rem 5rem;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .closing-quote {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.32;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+  }
+  .closing-quote em {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .closing-attr {
+    font-size: 0.82rem;
+    color: var(--ink-quiet);
+    font-family: var(--serif);
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .closing-attr strong {
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-style: normal;
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+  }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    border-top: 1px solid var(--rule);
+    background: var(--bg-deep);
+    padding: 3rem 2rem;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .footer-brand {
+    display: flex; align-items: center; gap: 0.8rem;
+    color: var(--ink-muted);
+  }
+  .footer-logo { height: 20px; width: auto; }
+  .footer-brand span {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+  .footer-note {
+    font-size: 0.78rem;
+    color: var(--ink-quiet);
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  /* ─── REVEAL ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.08s; }
+  .reveal-d2 { transition-delay: 0.16s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 820px) {
+    .nav-links { display: none; }
+    .nav-inner { padding: 1rem 1.5rem; }
+    .hero-content { padding: 4.5rem 1.5rem 3.5rem; }
+    .hero-meta { gap: 2rem; }
+    .hero-mark { font-size: 8rem; top: 2rem; right: 1rem; }
+    .section { padding: 4rem 1.5rem; }
+    .prop-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .prop-quote { position: static; }
+    .is-isnot { grid-template-columns: 1fr; gap: 2.5rem; }
+    .isnot-block { padding-left: 0; border-left: none; border-top: 1px solid var(--rule); padding-top: 2rem; }
+    .phase { grid-template-columns: 4rem 1fr; gap: 1.2rem; padding: 2rem 0; }
+    .phase-num { font-size: 1.6rem; }
+    .rhythm-band { grid-template-columns: 1fr; gap: 1rem; padding: 1.8rem 0; }
+    .crit-list { grid-template-columns: 1fr; gap: 0; }
+    .support-grid { grid-template-columns: 1fr; }
+    .ask { padding: 2.2rem 1.5rem; }
+    .ask-list { grid-template-columns: 1fr; }
+    .closing { padding: 4.5rem 1.5rem; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">
+      <img class="nav-logo" src="data:image/png;base64,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" alt="YLD">
+      <span class="nav-title">The Becoming</span>
+    </a>
+    <div class="nav-links">
+      <a href="#proposition">Proposition</a>
+      <a href="#shape">What it is</a>
+      <a href="#journey">Journey</a>
+      <a href="#rhythm">Rhythm</a>
+      <a href="#ready">Ready for Exec</a>
+      <a href="#support">Support</a>
+      <a href="#ask">What we ask</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-content">
+    <span class="hero-mark">Becoming</span>
+    <div class="hero-tag">A YLD programme - first cohort 2026</div>
+    <h1>The <em>Becoming</em>.</h1>
+    <p class="hero-sub">A programme for the next generation of executive leaders at YLD. A serious investment in who we are becoming, alongside the firm we are building together.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Shape</span>
+        <span class="hero-meta-value">18 to 24 months to Exec</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Then</span>
+        <span class="hero-meta-value">6 to 12 months in-role support</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="hero-meta-label">Sponsored by</span>
+        <span class="hero-meta-value">José Carluccio, CEO</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="proposition">
+  <div class="reveal">
+    <div class="section-num">i. The proposition</div>
+    <h2 class="section-title">An investment in who we are becoming, and in the firm we are building together.</h2>
+  </div>
+  <div class="prop-grid">
+    <div class="prop-quote reveal reveal-d1">
+      We will develop you as a leader, alongside the journey we are on together as YLD, because that is the kind of firm we want to be.
+    </div>
+    <div class="prose reveal reveal-d2">
+      <p>YLD is building toward its next chapter. That requires a deeper Executive Team and a more deliberate approach to how we develop the people who will lead the firm next.</p>
+      <p>The Becoming is how we do that. It is for the small number of colleagues in YLD who have already shaped the firm through the quality of their work, the strength of their judgement, the depth of their client relationships, and the contribution they have made to where YLD is today - and who, with the right support, could carry that contribution into an executive role within the next eighteen to twenty-four months. Selection is a judgement made by the CEO and Chair together, supported by evidence rather than reputation.</p>
+      <p>The Becoming is not a typical leadership development programme. It is something we are building deliberately to support our future leaders, and to support the firm we want to be tomorrow - for our clients, our colleagues, and everyone we work with. It is all-encompassing by design. It will stretch us and challenge us. It will develop capabilities we did not know we had. And our hope is that it taps into an energy that shapes how we lead, not just for the next two years, but for the rest of our careers.</p>
+      <p>Some of what we develop here helps YLD. Some of it helps the colleague wherever their career takes them. Both matter to us. We accept that some may eventually lead elsewhere. The firm benefits from being the place that did this for them.</p>
+      <p>The proposition is investment. It is not a promise of promotion. Stepping into an Exec role depends on the work, the judgement, and the role being right. But the commitment to develop people properly is unconditional.</p>
+      <p>The Becoming is how we are investing in the development, the talent, and the potential we need to support YLD's continued growth - for tomorrow and for everything that comes next. The first cohort begins in 2026.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="shape">
+  <div class="reveal">
+    <div class="section-num">ii. What it is, and what it is not</div>
+    <h2 class="section-title">Clarity matters from the start.</h2>
+    <p class="section-lead">The Becoming is unusual enough that it can be misread. The clearest way to settle what it is is to say both sides plainly.</p>
+  </div>
+
+  <div class="is-isnot reveal reveal-d1">
+
+    <div class="is-block">
+      <div class="is-label">What it is</div>
+      <div class="is-item">
+        <div class="is-item-num">01</div>
+        <div class="is-item-body">
+          <h4>A structured transition into firm-wide leadership.</h4>
+          <p>The work moves us from leading a function well to carrying collective responsibility for the firm. That shift is the point of the programme.</p>
+        </div>
+      </div>
+      <div class="is-item">
+        <div class="is-item-num">02</div>
+        <div class="is-item-body">
+          <h4>Anchored in real business work.</h4>
+          <p>Each colleague takes on a sponsored enterprise assignment that delivers something the firm needs. Most of the development happens through that work, not around it.</p>
+        </div>
+      </div>
+      <div class="is-item">
+        <div class="is-item-num">03</div>
+        <div class="is-item-body">
+          <h4>A serious investment by the firm.</h4>
+          <p>Sponsored by the CEO, supported by the Chair, with a structured rhythm of mentoring, coaching, exposure, and external development. This is the firm putting weight behind the people who will lead it next.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="isnot-block">
+      <div class="isnot-label">What it is not</div>
+      <div class="isnot-item">
+        <div class="isnot-item-num">01</div>
+        <div class="isnot-item-body">
+          <h4>Not a training programme.</h4>
+          <p>Training programmes deliver content. The Becoming uses real work, exposure, mentoring, and reflection to do its developmental work.</p>
+        </div>
+      </div>
+      <div class="isnot-item">
+        <div class="isnot-item-num">02</div>
+        <div class="isnot-item-body">
+          <h4>Not a high-potential scheme.</h4>
+          <p>High-potential schemes signal possibility and serve retention. The Becoming is narrower and more deliberate, tied to identified future Exec roles.</p>
+        </div>
+      </div>
+      <div class="isnot-item">
+        <div class="isnot-item-num">03</div>
+        <div class="isnot-item-body">
+          <h4>Not a promise of promotion.</h4>
+          <p>The commitment is to develop people properly. Whether someone steps into an Exec role depends on their progress, the readiness criteria being met, and the right role being available.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="journey">
+  <div class="reveal">
+    <div class="section-num">iii. The shape of the journey</div>
+    <h2 class="section-title">A journey of eighteen to twenty-four months, then in-role support.</h2>
+    <p class="section-lead">A journey of between eighteen and twenty-four months of structured development leading to an Exec appointment, followed by six to twelve months of active in-role support. <em>The work is built around two ideas.</em> First, the central shift is from functional leader to firm-wide leader - an identity change, not just a skills upgrade. Second, experience and relationships do most of the developmental work; structured content sits behind them.</p>
+  </div>
+  <div class="phases reveal reveal-d1">
+
+    <div class="phase">
+      <div class="phase-num">01</div>
+      <div class="phase-body">
+        <div class="phase-meta">Foundations</div>
+        <h3>Building the capability that future Exec colleagues need.</h3>
+        <p>Financial fluency, professional services economics, commercial decision-making, client leadership, leading people, owning risk, governance, and the discipline of running the business rather than running a function. The aim is not to make us experts in every domain but to make us credible integrators across them. Baseline assessments and structured feedback start here. Board exposure begins as an observer.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">02</div>
+      <div class="phase-body">
+        <div class="phase-meta">Enterprise assignment</div>
+        <h3>Live business work, with real consequence.</h3>
+        <p>Each colleague takes ownership of a sponsored value creation assignment outside their functional comfort zone. Real work - margin discipline, client expansion, succession architecture, pricing governance, the operating rhythm across our offices. The assignment is chosen so delivery requires us to operate across functions, exercise judgement under ambiguity, and be accountable to people who are not our normal stakeholders. This is the central developmental piece of the programme.</p>
+        <p>Alongside the assignment, each colleague begins to build their own successor. Stepping up into an Exec role is not about doing the current role from a more senior chair - it is about bringing the team up with us, so that when we move, someone is ready to take on what we are leaving behind. That work starts now, not at the end.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">03</div>
+      <div class="phase-body">
+        <div class="phase-meta">Identity and judgement</div>
+        <h3>The harder half of the work.</h3>
+        <p>The shift from functional voice to firm-wide voice. Judgement under ambiguity. Board readiness. Holding a room with peers. Disagreeing agreeably. Radical candour. Executive presence as a habit, not a performance. Supported by coaching, cohort clinics with Exec colleagues, simulated Board challenge, and reflective work on the moments that test leadership. This is the phase that separates training from transition.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">04</div>
+      <div class="phase-body">
+        <div class="phase-meta">Confirmation and appointment</div>
+        <h3>An honest readiness conversation.</h3>
+        <p>Readiness assessment against the criteria we have known from day one. Definition of the executive role being stepped into. Succession plan in the current function. First hundred-day plan for the new role. Final conversation with the CEO and Chair, including a Board panel.</p>
+        <p>By this point, the cohort has earned its place not just as future executives but as colleagues who will help each other lead the firm well - catching each other before we fall, holding the line together, speaking with one voice as a team. That is the kind of Exec team we are building. The appointment is the moment we begin doing it for real.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-num">05</div>
+      <div class="phase-body">
+        <div class="phase-meta">In-role support (6 to 12 months)</div>
+        <h3>The landing is part of the programme.</h3>
+        <p>Most development programmes stop at appointment and treat what follows as someone else's problem. We do not. The first six to twelve months in role are when the transition either holds or unravels - and they are funded, scoped, and supported as part of The Becoming. Continued mentor and coach cadence, CEO alignment sessions, structured peer feedback, thirty-, ninety-, and one-hundred-and-eighty-day reviews, and deliberate management of the boundary with the previous function.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="rhythm">
+  <div class="reveal">
+    <div class="section-num">iv. The rhythm of the programme</div>
+    <h2 class="section-title">A structured cadence, sized for serious work alongside the day job.</h2>
+    <p class="section-lead rhythm-intro">Roughly fifteen days a year of structured programme time, plus the enterprise assignment which is real business work delivered within normal capacity. The rhythm is built to be substantive without becoming overwhelming. The day job continues; the development sits alongside it deliberately.</p>
+  </div>
+
+  <div class="rhythm-timeline reveal reveal-d1">
+
+    <div class="rhythm-band">
+      <div class="rhythm-band-cadence">
+        <div class="rhythm-band-frequency">Monthly</div>
+        <div class="rhythm-band-volume">Three sessions</div>
+      </div>
+      <div class="rhythm-band-items">
+        <div class="rhythm-item">
+          <h4>Mentoring conversation with the Chair.</h4>
+          <p>The senior developmental relationship. A standing monthly session of around ninety minutes with Richard, focused on enterprise judgement, governance, and the moments that matter as they happen. The most consistent thread through the programme.</p>
+        </div>
+        <div class="rhythm-item">
+          <h4>Conversation with the CEO.</h4>
+          <p>A monthly conversation with José. Not a line-management check-in, not a performance review - a coffee chat, a walk around the block, a chance to step out of the day and think out loud. The aim is to unlock, to bring a different perspective, and to make sure the firm is doing everything it can to support the journey.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rhythm-band">
+      <div class="rhythm-band-cadence">
+        <div class="rhythm-band-frequency">Bi-monthly</div>
+        <div class="rhythm-band-volume">Two sessions</div>
+      </div>
+      <div class="rhythm-band-items">
+        <div class="rhythm-item">
+          <h4>Executive coaching session.</h4>
+          <p>An ongoing professional coaching relationship across the full journey, tied to live work rather than abstract development. The coach travels with us from foundations through to the in-role phase, providing continuity through the transitions.</p>
+        </div>
+        <div class="rhythm-item">
+          <h4>Cohort clinic with Exec colleagues.</h4>
+          <p>The cohort meets every two months with at least two members of the current Exec, working through live business problems together. Exec colleagues bring real situations; the cohort engages, contributes, and is seen by the people who will eventually be their peers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rhythm-band">
+      <div class="rhythm-band-cadence">
+        <div class="rhythm-band-frequency">Quarterly</div>
+        <div class="rhythm-band-volume">Two sessions</div>
+      </div>
+      <div class="rhythm-band-items">
+        <div class="rhythm-item">
+          <h4>Structured learning module.</h4>
+          <p>A half-day topic-led session each quarter. Subjects might include professional services economics, commercial decision-making, board readiness, or specific identity work. Led internally where the expertise is in the firm; brought in where it is not.</p>
+        </div>
+        <div class="rhythm-item">
+          <h4>Progress and feedback review.</h4>
+          <p>A structured conversation each quarter with the CEO and Chair, using 360 feedback and the readiness criteria as the frame. Honest, evidence-based, and recalibrating the development plan as the journey progresses.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rhythm-band">
+      <div class="rhythm-band-cadence">
+        <div class="rhythm-band-frequency">Twice a year</div>
+        <div class="rhythm-band-volume">One moment</div>
+      </div>
+      <div class="rhythm-band-items">
+        <div class="rhythm-item">
+          <h4>Board observation.</h4>
+          <p>Two Board meetings a year attended as an observer, with structured preparation beforehand and a debrief afterwards. The aim is to make the experience developmental rather than passive - we come away with a clearer sense of how the firm is governed.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rhythm-band">
+      <div class="rhythm-band-cadence">
+        <div class="rhythm-band-frequency">Annually</div>
+        <div class="rhythm-band-volume">One moment</div>
+      </div>
+      <div class="rhythm-band-items">
+        <div class="rhythm-item">
+          <h4>Board strategy away day.</h4>
+          <p>An annual full-day strategic conversation with the Board, attended as a full contributor rather than an observer. This is the moment in the year where the cohort is visibly part of the firm's strategic thinking. From month twelve onwards, this becomes a substantive piece of the development.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="rhythm-band">
+      <div class="rhythm-band-cadence">
+        <div class="rhythm-band-frequency">Once</div>
+        <div class="rhythm-band-volume">Across the programme</div>
+      </div>
+      <div class="rhythm-band-items">
+        <div class="rhythm-item">
+          <h4>External executive programme.</h4>
+          <p>A five-day intensive at a leading institution - London Business School, Oxford Saïd, or equivalent. Selected jointly with the Chair based on what would stretch us most. The week is funded by YLD and is part of how we invest in the person, not just in their role with us.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="rhythm-callout reveal reveal-d1">
+    <div class="rhythm-callout-label">From month twelve onwards</div>
+    <h4>The exposure cadence intensifies.</h4>
+    <p>More frequent Board attendance, larger ownership of the enterprise assignment, increasing visibility in senior client conversations, and progressive co-leadership of cross-firm decisions. By the appointment point, the cohort has been operating at Exec altitude for months, not days.</p>
+  </div>
+</section>
+
+<section class="section" id="ready">
+  <div class="reveal">
+    <div class="section-num">v. What ready for Exec actually means</div>
+    <h2 class="section-title">The criteria are visible from the start.</h2>
+    <p class="section-lead">Readiness is a judgement, not a measurement. It needs to be made against criteria we know from day one, so the judgement is open and the development is targeted. These are the things that will define readiness at the end of the programme.</p>
+  </div>
+  <ul class="crit-list reveal reveal-d1">
+    <li><strong>Strategic thinking.</strong><span>Able to step up and think through decisions in the lens of the business we are leading, not just the function we are managing.</span></li>
+    <li><strong>Commercial fluency.</strong><span>Working understanding of revenue quality, margin, pricing, utilisation, client concentration, and the levers that affect enterprise value.</span></li>
+    <li><strong>Board-level communication.</strong><span>Clarity without hiding complexity. Concise under challenge. Asking for the right decision at the right time. No surprises in the room.</span></li>
+    <li><strong>Peer challenge without damage.</strong><span>Disagreeing clearly with Exec colleagues while maintaining trust and constructive working relationships.</span></li>
+    <li><strong>Rolling sleeves up.</strong><span>Doing what the business needs, whether or not it sits in your function. Sometimes that plays to skills and passion; sometimes it is just what needs to happen.</span></li>
+    <li><strong>Client leadership and growth.</strong><span>Holding senior client relationships in your own right. Visibly contributing to growth. Strategic, long-term thinking, not just hitting the next quarter.</span></li>
+    <li><strong>Market profile and ambassadorship.</strong><span>A visible presence in the market for YLD. The kind of person clients, candidates, and the wider industry recognise as YLD.</span></li>
+    <li><strong>Bringing the team up.</strong><span>Supporting your team and executing your succession plan so that when you step up, someone behind you is ready to take on the role you are leaving.</span></li>
+    <li><strong>Contribution to YLD's growth.</strong><span>Work led that has measurably moved a part of the business that matters for the next chapter.</span></li>
+  </ul>
+</section>
+
+<section class="section" id="support">
+  <div class="reveal">
+    <div class="section-num">vi. Who supports the journey</div>
+    <h2 class="section-title">Three relationships, each doing distinct work.</h2>
+    <p class="section-lead">The Becoming is built on relationships as much as content. Each of the three sits at a different altitude and contributes something the others cannot.</p>
+  </div>
+  <div class="support-grid reveal reveal-d1">
+    <div class="support-card">
+      <div class="support-label">CEO &middot; Sponsor</div>
+      <h3>The programme is YLD's. José sponsors it.</h3>
+      <p>The Becoming is the firm's programme - the way we invest in the leaders who will lead YLD next. José has shaped it, sponsors it, and is fully committed to it being the vehicle through which we develop our future executive team.</p>
+    </div>
+    <div class="support-card">
+      <div class="support-label">Chair &middot; Mentor for cohort one</div>
+      <h3>Lived experience, shared in the room.</h3>
+      <p>For the first cohort, Richard acts as mentor. A monthly conversation drawing on the lived experience of having walked the road - having led similar journeys, faced the same transitions, and worked with programmes like this from both sides. The Chair role is to bring perspective that comes from having sat where you are sitting, not from observing it.</p>
+    </div>
+    <div class="support-card">
+      <div class="support-label">Executive coach</div>
+      <h3>A partner through the journey.</h3>
+      <p>A professional coach working with us across the full journey, including the in-role phase. The coaching is tied to live work rather than running parallel to it - this is where the identity work and the practical work meet.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ask">
+  <div class="reveal">
+    <div class="section-num">vii. What we ask</div>
+    <div class="ask">
+      <div class="ask-label">Asked of colleagues</div>
+      <h3>Generous in what we commit. Demanding in what we ask back.</h3>
+      <p class="prose" style="max-width: 36rem; margin-bottom: 1.8rem;">The Becoming asks more of colleagues than a conventional development programme does. The proposition is generous; the bar is high. This is not something to say yes to lightly.</p>
+      <ul class="ask-list">
+        <li>To engage with the work as a serious investment in our own development - not as a perk, and not as a transaction.</li>
+        <li>To take real ownership of the enterprise assignment, with all the discomfort that brings.</li>
+        <li>To be visibly accountable to peers, to the Exec, and to the Board.</li>
+        <li>To accept and act on candid feedback - the kind that is uncomfortable to hear.</li>
+        <li>To develop our successor in our current function so the firm is stronger when we move, not weaker.</li>
+        <li>To represent YLD externally with care and credibility throughout.</li>
+        <li>To do the harder identity work, not just the easier capability work.</li>
+        <li>To trust the process where it asks us to be uncomfortable.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="reveal">
+    <p class="closing-quote">Two years from now, we will have done work that <em>moved</em> the business. And the firm will have done work that <em>moved</em> us. <br><br>That is what we are building together.</p>
+    <div class="closing-attr">
+      <strong>José Carluccio, CEO</strong>
+      June 2026
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img class="footer-logo" src="data:image/png;base64,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" alt="YLD">
+      <span>The Becoming, a YLD programme</span>
+    </div>
+    <div class="footer-note">Prepared by the architect for the CEO &middot; May 2026</div>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
